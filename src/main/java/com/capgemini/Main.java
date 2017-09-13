@@ -11,9 +11,5 @@ public class Main {
         renter.startTour();
         Thread.sleep(40000);
         System.out.println(renter.stopTour(1));
-        renter.printTours();
-
     }
-
-
 }
