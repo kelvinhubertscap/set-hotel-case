@@ -1,11 +1,10 @@
 package com.capgemini;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Test;
 
-import com.capgemini.Main;
+import static org.junit.Assert.assertEquals;
 
-class MainTest {
+public class MainTest {
 
     @Test
     public void myFirstTest(){
