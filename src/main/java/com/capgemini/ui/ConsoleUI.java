@@ -1,8 +1,12 @@
 package com.capgemini.ui;
 
+import com.capgemini.core.Tour;
+import com.capgemini.core.TourException;
 import com.capgemini.core.TourManager;
 
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class ConsoleUI {
     /**
@@ -17,27 +21,46 @@ public class ConsoleUI {
     private final static String UNKNOWN_COMMAND_FORMAT  = "Error: unknown command \"%s\".";
 
     public static void main(String[] args) {
-        TourManager rental = new TourManager();
+        TourManager rental  = new TourManager();
+        Set<Tour> tours     = new HashSet<>();
 
         Scanner scanner = new Scanner(System.in);
         String line;
 
         while(!(line = scanner.nextLine()).equals("exit")) {
-            if(line.equals("start")) {
-                int tourId = rental.startTour();
-                System.out.printf(TOUR_ID_FORMAT + "%n", tourId);
-                System.out.printf(TOURS_STARTED_FORMAT + "%n", rental.getNumberOfTours());
-                System.out.printf(TOURS_ENDED_FORMAT + "%n", rental.getNumberReturned());
-                System.out.printf(AVERAGE_DURATION_FORMAT + "%n", rental.getAverageTimeInMillis());
-            } else if(line.startsWith("stop")) {
-                int tourId      = Integer.parseInt(line.substring(4).trim());
-                long duration   = rental.stopTour(tourId);
-
-                if(duration < 0) {
-                    System.out.printf(DURATION_ERROR + "%n", tourId);
-                } else {
-                    System.out.printf(TOUR_DURATION_FORMAT + "%n", duration);
+            if(line.equals("startTime")) {
+                try {
+                    Tour tour = rental.startTour();
+                    tours.add(tour);
+                    System.out.printf(TOUR_ID_FORMAT + "%n", tour.getTourId());
+                } catch (TourException e) {
+                    System.err.println(e.getMessage());
                 }
+
+            } else if(line.startsWith("stop")) {
+                int tourId = Integer.parseInt(line.substring(4).trim());
+
+                Tour found = null;
+
+                for(Tour t : tours) {
+                    if(t.getTourId() == tourId) {
+                        found = t;
+                    }
+                }
+
+                if(found == null) {
+                    System.out.printf(DURATION_ERROR + "%n", tourId);
+                    return;
+                }
+
+                try {
+                    rental.stopTour(found);
+
+                    System.out.printf(TOUR_DURATION_FORMAT + " %n", found.getDuration());
+                } catch (TourException e) {
+                    System.err.println(e.getMessage());
+                }
+            } else if(line.startsWith("statistics")) {
                 System.out.printf(TOURS_STARTED_FORMAT + "%n", rental.getNumberOfTours());
                 System.out.printf(TOURS_ENDED_FORMAT + "%n", rental.getNumberReturned());
                 System.out.printf(AVERAGE_DURATION_FORMAT + "%n", rental.getAverageTimeInMillis());

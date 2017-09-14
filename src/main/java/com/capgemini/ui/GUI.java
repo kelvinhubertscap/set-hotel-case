@@ -1,9 +1,15 @@
 package com.capgemini.ui;
 
+import com.capgemini.core.Tour;
+import com.capgemini.core.TourException;
 import com.capgemini.core.TourManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * A simple Swing GUI for usage with the boat rental program {@link TourManager}.
@@ -18,7 +24,7 @@ public class GUI extends JFrame {
     private final static String STATUS          = "Status:";
     private final static String AVERAGE         = "Average:";
     private final static String TOUR_ID         = "TourId:";
-    private final static String STATUS_START    = "Use the button to start/stop tours";
+    private final static String STATUS_START    = "Use the button to startTime/stop tours";
     private final static String TOURS_STARTED   = "Tours started:";
     private final static String TOURS_ENDED     = "Tours ended:";
 
@@ -54,11 +60,13 @@ public class GUI extends JFrame {
     /**
      * Instance variables
      */
-    private final TourManager rental;
+    private final TourManager   rental;
+    private final Set<Tour>     tours;
 
     public GUI() {
         super(TITLE);
         this.rental = new TourManager();
+        this.tours  = new HashSet<>();
 
         initGUI();
         initListeners();
@@ -291,9 +299,15 @@ public class GUI extends JFrame {
      * Start a new tour.
      */
     private void startTour() {
-        int tourId = rental.startTour();
+        try {
+            Tour tour = rental.startTour();
+            tfStatus.setText(String.format(TOUR_FORMAT, tour.getTourId()));
+            tours.add(tour);
+        } catch (TourException e) {
+            tfStatus.setText(e.getMessage());
+            return;
+        }
 
-        tfStatus.setText(String.format(TOUR_FORMAT, tourId));
         updateStatistics();
     }
 
@@ -303,14 +317,27 @@ public class GUI extends JFrame {
     private void stopTour() {
         int tourId = (int) spnrTourId.getValue();
 
-        long durationMillis = rental.stopTour(tourId);
+        Tour found = null;
 
-        if(durationMillis < 0) {
+        for(Tour t : tours) {
+            if(t.getTourId() == tourId) {
+                found = t;
+            }
+        }
+
+        if(found == null) {
             tfStatus.setText(String.format(DURATION_ERROR, tourId));
             return;
         }
 
-        tfStatus.setText(String.format(DURATION_FORMAT, durationMillis));
+        try {
+            rental.stopTour(found);
+
+            tfStatus.setText(String.format(DURATION_FORMAT, found.getDuration()));
+        } catch (TourException e) {
+            tfStatus.setText(e.getMessage());
+        }
+
         updateStatistics();
     }
 

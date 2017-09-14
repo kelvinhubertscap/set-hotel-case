@@ -84,10 +84,8 @@ public class TourManager {
      * Statistics on all tours are updated.
      *
      * @param tour The tour to be stopped.
-     * @return The duration of the tour that was ended.
-     * If no tour with the given ID was found, returns -1.
      */
-    public long stopTour(Tour tour) throws TourException {
+    public void stopTour(Tour tour) throws TourException {
         if(tour == null) {
             throw new TourException("No tour was provided.");
         }
@@ -98,8 +96,6 @@ public class TourManager {
         totalTimeInMillis += tour.getDuration();
 
         updateStatistics();
-
-        return tour.getDuration();
     }
 
     /**
