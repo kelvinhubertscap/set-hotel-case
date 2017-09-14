@@ -19,6 +19,8 @@ public class MainFrame extends JFrame {
     private final static String AVERAGE         = "Average:";
     private final static String TOUR_ID         = "TourId:";
     private final static String STATUS_START    = "Use the button to start/stop tours";
+    private final static String TOURS_STARTED   = "Tours started:";
+    private final static String TOURS_ENDED     = "Tours ended:";
 
     /**
      * Text formats, switch to per-language dictionaries on long term.
@@ -33,11 +35,17 @@ public class MainFrame extends JFrame {
      */
     private JPanel      pnlMain;
     private JPanel      pnlButtonBar;
+    private JPanel      pnlView;
+    private JScrollPane spView;
     private JLabel      lblStatus;
     private JLabel      lblAverage;
     private JLabel      lblTourId;
+    private JLabel      lblToursStarted;
+    private JLabel      lblToursEnded;
     private JTextField  tfStatus;
     private JTextField  tfAverage;
+    private JTextField  tfToursStarted;
+    private JTextField  tfToursEnded;
     private JSpinner    spnrTourId;
 
     private JButton     btnStart;
@@ -64,24 +72,36 @@ public class MainFrame extends JFrame {
     private void initGUI() {
         pnlMain         = new JPanel(new GridBagLayout());
         pnlButtonBar    = new JPanel(new GridBagLayout());
+        pnlView         = new JPanel(new GridBagLayout());
+        spView          = new JScrollPane(pnlView);
         lblStatus       = new JLabel();
         lblAverage      = new JLabel();
         lblTourId       = new JLabel();
+        lblToursStarted = new JLabel();
+        lblToursEnded   = new JLabel();
         btnStart        = new JButton();
         btnStop         = new JButton();
         tfStatus        = new JTextField();
         tfAverage       = new JTextField();
+        tfToursStarted  = new JTextField();
+        tfToursEnded    = new JTextField();
         spnrTourId      = new JSpinner();
 
-        btnStart    .setText(START);
-        btnStop     .setText(STOP);
-        lblStatus   .setText(STATUS);
-        lblAverage  .setText(AVERAGE);
-        lblTourId   .setText(TOUR_ID);
-        tfStatus    .setText(STATUS_START);
-        tfStatus    .setEditable(false);
-        tfAverage   .setEditable(false);
-        spnrTourId  .setModel(new SpinnerNumberModel(0, 0, null, 1));
+        btnStart        .setText(START);
+        btnStop         .setText(STOP);
+        lblStatus       .setText(STATUS);
+        lblAverage      .setText(AVERAGE);
+        lblTourId       .setText(TOUR_ID);
+        lblToursStarted .setText(TOURS_STARTED);
+        lblToursEnded   .setText(TOURS_ENDED);
+        tfStatus        .setText(STATUS_START);
+        tfStatus        .setEditable(false);
+        tfAverage       .setEditable(false);
+        tfToursStarted  .setEditable(false);
+        tfToursEnded    .setEditable(false);
+        spnrTourId      .setModel(
+                new SpinnerNumberModel(0, 0, null, 1)
+        );
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx       = 0;
@@ -93,7 +113,7 @@ public class MainFrame extends JFrame {
         gbc.fill        = GridBagConstraints.NONE;
         gbc.anchor      = GridBagConstraints.NORTHWEST;
         gbc.insets      = new Insets(5, 5, 5, 5);
-        pnlMain.add(lblStatus, gbc);
+        pnlView.add(lblStatus, gbc);
 
         gbc = new GridBagConstraints();
         gbc.gridx       = 1;
@@ -105,7 +125,7 @@ public class MainFrame extends JFrame {
         gbc.fill        = GridBagConstraints.HORIZONTAL;
         gbc.anchor      = GridBagConstraints.NORTHWEST;
         gbc.insets      = new Insets(5, 0, 5, 5);
-        pnlMain.add(tfStatus, gbc);
+        pnlView.add(tfStatus, gbc);
 
         gbc = new GridBagConstraints();
         gbc.gridx       = 0;
@@ -117,7 +137,7 @@ public class MainFrame extends JFrame {
         gbc.fill        = GridBagConstraints.NONE;
         gbc.anchor      = GridBagConstraints.NORTHWEST;
         gbc.insets      = new Insets(0, 5, 5, 5);
-        pnlMain.add(lblAverage, gbc);
+        pnlView.add(lblAverage, gbc);
 
         gbc = new GridBagConstraints();
         gbc.gridx       = 1;
@@ -129,11 +149,59 @@ public class MainFrame extends JFrame {
         gbc.fill        = GridBagConstraints.HORIZONTAL;
         gbc.anchor      = GridBagConstraints.NORTHWEST;
         gbc.insets      = new Insets(0, 0, 5, 5);
-        pnlMain.add(tfAverage, gbc);
+        pnlView.add(tfAverage, gbc);
 
         gbc = new GridBagConstraints();
         gbc.gridx       = 0;
         gbc.gridy       = 2;
+        gbc.weightx     = 1;
+        gbc.weighty     = 0;
+        gbc.gridwidth   = 1;
+        gbc.gridheight  = 1;
+        gbc.fill        = GridBagConstraints.NONE;
+        gbc.anchor      = GridBagConstraints.NORTHWEST;
+        gbc.insets      = new Insets(0, 5, 5, 5);
+        pnlView.add(lblTourId, gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx       = 1;
+        gbc.gridy       = 2;
+        gbc.weightx     = 1;
+        gbc.weighty     = 0;
+        gbc.gridwidth   = 1;
+        gbc.gridheight  = 1;
+        gbc.fill        = GridBagConstraints.BOTH;
+        gbc.anchor      = GridBagConstraints.NORTHWEST;
+        gbc.insets      = new Insets(0, 0, 5, 5);
+        pnlView.add(spnrTourId, gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx       = 0;
+        gbc.gridy       = 3;
+        gbc.weightx     = 1;
+        gbc.weighty     = 0;
+        gbc.gridwidth   = 1;
+        gbc.gridheight  = 1;
+        gbc.fill        = GridBagConstraints.NONE;
+        gbc.anchor      = GridBagConstraints.NORTHWEST;
+        gbc.insets      = new Insets(0, 5, 5, 5);
+        pnlView.add(lblToursStarted, gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx       = 1;
+        gbc.gridy       = 3;
+        gbc.weightx     = 1;
+        gbc.weighty     = 0;
+        gbc.gridwidth   = 1;
+        gbc.gridheight  = 1;
+        gbc.fill        = GridBagConstraints.BOTH;
+        gbc.anchor      = GridBagConstraints.NORTHWEST;
+        gbc.insets      = new Insets(0, 0, 5, 5);
+        pnlView.add(tfToursStarted, gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx       = 0;
+        gbc.gridy       = 4;
         gbc.weightx     = 1;
         gbc.weighty     = 1;
         gbc.gridwidth   = 1;
@@ -141,20 +209,22 @@ public class MainFrame extends JFrame {
         gbc.fill        = GridBagConstraints.NONE;
         gbc.anchor      = GridBagConstraints.NORTHWEST;
         gbc.insets      = new Insets(0, 5, 5, 5);
-        pnlMain.add(lblTourId, gbc);
+        pnlView.add(lblToursEnded, gbc);
 
         gbc = new GridBagConstraints();
         gbc.gridx       = 1;
-        gbc.gridy       = 2;
-        gbc.weightx     = 1;
-        gbc.weighty     = 1;
+        gbc.gridy       = 4;
+        gbc.weightx     = 0;
+        gbc.weighty     = 0;
         gbc.gridwidth   = 1;
         gbc.gridheight  = 1;
-        gbc.fill        = GridBagConstraints.NONE;
+        gbc.fill        = GridBagConstraints.HORIZONTAL;
         gbc.anchor      = GridBagConstraints.NORTHWEST;
         gbc.insets      = new Insets(0, 0, 5, 5);
-        pnlMain.add(spnrTourId, gbc);
+        pnlView.add(tfToursEnded, gbc);
 
+
+        //Fill the button bar
         gbc = new GridBagConstraints();
         gbc.gridx       = 0;
         gbc.gridy       = 0;
@@ -179,12 +249,26 @@ public class MainFrame extends JFrame {
         gbc.insets      = new Insets(0, 5, 0, 0);
         pnlButtonBar.add(btnStart, gbc);
 
+
+        //Add the button bar and the view panel to the frame
         gbc = new GridBagConstraints();
         gbc.gridx       = 0;
-        gbc.gridy       = 3;
+        gbc.gridy       = 0;
+        gbc.weightx     = 1;
+        gbc.weighty     = 1;
+        gbc.gridwidth   = 1;
+        gbc.gridheight  = 1;
+        gbc.fill        = GridBagConstraints.BOTH;
+        gbc.anchor      = GridBagConstraints.NORTHWEST;
+        gbc.insets      = new Insets(0, 0, 0, 0);
+        pnlMain.add(pnlView, gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx       = 0;
+        gbc.gridy       = 1;
         gbc.weightx     = 1;
         gbc.weighty     = 0;
-        gbc.gridwidth   = 2;
+        gbc.gridwidth   = 1;
         gbc.gridheight  = 1;
         gbc.fill        = GridBagConstraints.BOTH;
         gbc.anchor      = GridBagConstraints.NORTHWEST;
@@ -210,6 +294,7 @@ public class MainFrame extends JFrame {
         int tourId = rental.startTour();
 
         tfStatus.setText(String.format(TOUR_FORMAT, tourId));
+        updateStatistics();
     }
 
     /**
@@ -234,6 +319,8 @@ public class MainFrame extends JFrame {
      */
     private void updateStatistics() {
         tfAverage.setText(String.format(AVERAGE_FORMAT, rental.getAverageTimeInMillis()));
+        tfToursStarted.setText(String.valueOf(rental.getNumberOfTours()));
+        tfToursEnded.setText(String.valueOf(rental.getNumberReturned()));
     }
 
     public static void main(String[] args) {
