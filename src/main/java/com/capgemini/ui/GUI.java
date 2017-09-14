@@ -1,14 +1,14 @@
-package com.capgemini.gui;
+package com.capgemini.ui;
 
-import com.capgemini.core.Rental;
+import com.capgemini.core.TourManager;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * A simple Swing GUI for usage with the boat rental program {@link Rental}.
+ * A simple Swing GUI for usage with the boat rental program {@link TourManager}.
  */
-public class MainFrame extends JFrame {
+public class GUI extends JFrame {
     /**
      * Text variables, switch to per-language dictionaries on long term.
      */
@@ -54,11 +54,11 @@ public class MainFrame extends JFrame {
     /**
      * Instance variables
      */
-    private final Rental rental;
+    private final TourManager rental;
 
-    public MainFrame() {
+    public GUI() {
         super(TITLE);
-        this.rental = new Rental();
+        this.rental = new TourManager();
 
         initGUI();
         initListeners();
@@ -324,7 +324,7 @@ public class MainFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-        MainFrame frame = new MainFrame();
+        GUI frame = new GUI();
         frame.setMinimumSize(new Dimension(600, 600));
         frame.setSize(600, 600);
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);

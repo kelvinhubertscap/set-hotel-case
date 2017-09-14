@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Represents a boat rental facility
  */
-public class Rental {
+public class TourManager {
     /**
      * {@link #numTours} represents the number of tours that have started.
      * This is also used to assign tour IDs.
@@ -16,21 +16,17 @@ public class Rental {
      * {@link #totalTimeInMillis} represents the accumulated duration of all completed boat tours.
      *
      * {@link #averageTimeInMillis} represents the average duration of a boat tour.
-     *
-     * {@link #tours} represents all tours still under way.
      */
     private int         numTours;
     private int         numReturned;
     private long        totalTimeInMillis;
     private double      averageTimeInMillis;
-    private List<Tour>  tours;
 
-    public Rental() {
+    public TourManager() {
         numTours            = 0;
         numReturned         = 0;
         totalTimeInMillis   = 0;
         averageTimeInMillis = 0d;
-        tours               = new ArrayList<>();
     }
 
     /**
@@ -75,47 +71,35 @@ public class Rental {
      *
      * @return The ID of the newly created tour.
      */
-    public int startTour() {
-        Tour tour = new Tour(++numTours, System.currentTimeMillis());
+    public Tour startTour() throws TourException {
+        Tour tour = new Tour(++numTours);
 
-        tours.add(tour);
+        tour.start();
 
-        return tour.getTourId();
+        return tour;
     }
 
     /**
      * Stop a tour with the given ID.
      * Statistics on all tours are updated.
      *
-     * @param tourId The ID of the tour to be stopped.
+     * @param tour The tour to be stopped.
      * @return The duration of the tour that was ended.
      * If no tour with the given ID was found, returns -1.
      */
-    public long stopTour(int tourId) {
-        long stopTime = System.currentTimeMillis();
-
-        Tour found = null;
-
-        for(Tour tour : tours) {
-            if(tour.getTourId() == tourId) {
-                found = tour;
-                break;
-            }
+    public long stopTour(Tour tour) throws TourException {
+        if(tour == null) {
+            throw new TourException("No tour was provided.");
         }
 
-        if(found == null) {
-            return -1L;
-        }
-
-        tours.remove(found);
         numReturned++;
 
-        long duration = stopTime - found.getStart();
-        totalTimeInMillis += duration;
+        tour.stop();
+        totalTimeInMillis += tour.getDuration();
 
         updateStatistics();
 
-        return duration;
+        return tour.getDuration();
     }
 
     /**

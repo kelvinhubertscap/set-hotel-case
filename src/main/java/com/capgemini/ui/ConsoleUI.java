@@ -1,8 +1,10 @@
-package com.capgemini.core;
+package com.capgemini.ui;
+
+import com.capgemini.core.TourManager;
 
 import java.util.Scanner;
 
-public class Main {
+public class ConsoleUI {
     /**
      * Text formats
      */
@@ -15,7 +17,7 @@ public class Main {
     private final static String UNKNOWN_COMMAND_FORMAT  = "Error: unknown command \"%s\".";
 
     public static void main(String[] args) {
-        Rental rental = new Rental();
+        TourManager rental = new TourManager();
 
         Scanner scanner = new Scanner(System.in);
         String line;

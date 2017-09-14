@@ -7,12 +7,11 @@ import static org.junit.Assert.*;
 
 public class RentalTest {
 
-    private Rental rental;
+    private TourManager rental;
 
     @Before
     public void setUp() throws Exception {
-        this.rental = new Rental();
-
+        this.rental = new TourManager();
     }
 
     @Test
