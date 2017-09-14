@@ -43,7 +43,7 @@ public class TourManager {
      *
      * @return The number of tours that have ended.
      */
-    public int getNumberReturned() {
+    public int getTotalToursReturned() {
         return numReturned;
     }
 

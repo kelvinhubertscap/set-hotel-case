@@ -6,9 +6,7 @@ import com.capgemini.core.TourManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -347,7 +345,7 @@ public class GUI extends JFrame {
     private void updateStatistics() {
         tfAverage.setText(String.format(AVERAGE_FORMAT, rental.getAverageTimeInMillis()));
         tfToursStarted.setText(String.valueOf(rental.getNumberOfTours()));
-        tfToursEnded.setText(String.valueOf(rental.getNumberReturned()));
+        tfToursEnded.setText(String.valueOf(rental.getTotalToursReturned()));
     }
 
     public static void main(String[] args) {

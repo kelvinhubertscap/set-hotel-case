@@ -62,7 +62,7 @@ public class ConsoleUI {
                 }
             } else if(line.startsWith("statistics")) {
                 System.out.printf(TOURS_STARTED_FORMAT + "%n", rental.getNumberOfTours());
-                System.out.printf(TOURS_ENDED_FORMAT + "%n", rental.getNumberReturned());
+                System.out.printf(TOURS_ENDED_FORMAT + "%n", rental.getTotalToursReturned());
                 System.out.printf(AVERAGE_DURATION_FORMAT + "%n", rental.getAverageTimeInMillis());
             } else {
                 System.err.printf(UNKNOWN_COMMAND_FORMAT + "%n", line);
