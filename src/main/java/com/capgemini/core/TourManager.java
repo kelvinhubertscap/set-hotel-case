@@ -90,9 +90,8 @@ public class TourManager {
             throw new TourException("No tour was provided.");
         }
 
-        numReturned++;
-
         tour.stop();
+        numReturned++;
         totalTimeInMillis += tour.getDuration();
 
         updateStatistics();

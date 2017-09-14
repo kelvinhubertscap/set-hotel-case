@@ -28,7 +28,7 @@ public class ConsoleUI {
         String line;
 
         while(!(line = scanner.nextLine()).equals("exit")) {
-            if(line.equals("startTime")) {
+            if(line.equals("start")) {
                 try {
                     Tour tour = rental.startTour();
                     tours.add(tour);
@@ -65,7 +65,7 @@ public class ConsoleUI {
                 System.out.printf(TOURS_ENDED_FORMAT + "%n", rental.getNumberReturned());
                 System.out.printf(AVERAGE_DURATION_FORMAT + "%n", rental.getAverageTimeInMillis());
             } else {
-                System.out.printf(UNKNOWN_COMMAND_FORMAT + "%n", line);
+                System.err.printf(UNKNOWN_COMMAND_FORMAT + "%n", line);
             }
         }
     }
