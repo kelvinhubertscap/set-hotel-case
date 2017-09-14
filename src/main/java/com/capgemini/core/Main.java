@@ -9,10 +9,10 @@ public class Main {
     private final static String TOUR_ID_FORMAT          = "The tour ID is %d.";
     private final static String TOURS_STARTED_FORMAT    = "%d tours have been started.";
     private final static String TOURS_ENDED_FORMAT      = "%d tours have ended.";
-    private final static String TOUR_DURATION_FORMAT    = "The duration of the tour was %d ms";
-    private final static String AVERAGE_DURATION_FORMAT = "The average duration of tours is %f ms";
-    private final static String DURATION_ERROR          = "No tour with id %d was found";
-    private final static String UNKNOWN_COMMAND_FORMAT  = "Error: unknown command \"%s\"";
+    private final static String TOUR_DURATION_FORMAT    = "The duration of the tour was %d ms.";
+    private final static String AVERAGE_DURATION_FORMAT = "The average duration of tours is %f ms.";
+    private final static String DURATION_ERROR          = "No tour with id %d was found.";
+    private final static String UNKNOWN_COMMAND_FORMAT  = "Error: unknown command \"%s\".";
 
     public static void main(String[] args) {
         Rental rental = new Rental();
