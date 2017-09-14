@@ -11,7 +11,8 @@ public class Main {
     private final static String TOURS_ENDED_FORMAT      = "%d tours have ended.";
     private final static String TOUR_DURATION_FORMAT    = "The duration of the tour was %d ms";
     private final static String AVERAGE_DURATION_FORMAT = "The average duration of tours is %f ms";
-    private final static String DURATION_ERROR  = "No tour with id %d was found";
+    private final static String DURATION_ERROR          = "No tour with id %d was found";
+    private final static String UNKNOWN_COMMAND_FORMAT  = "Error: unknown command \"%s\"";
 
     public static void main(String[] args) {
         Rental rental = new Rental();
@@ -38,6 +39,8 @@ public class Main {
                 System.out.printf(TOURS_STARTED_FORMAT + "%n", rental.getNumberOfTours());
                 System.out.printf(TOURS_ENDED_FORMAT + "%n", rental.getNumberReturned());
                 System.out.printf(AVERAGE_DURATION_FORMAT + "%n", rental.getAverageTimeInMillis());
+            } else {
+                System.out.printf(UNKNOWN_COMMAND_FORMAT + "%n", line);
             }
         }
     }
