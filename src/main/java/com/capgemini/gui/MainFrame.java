@@ -154,7 +154,7 @@ public class MainFrame extends JFrame {
         gbc = new GridBagConstraints();
         gbc.gridx       = 0;
         gbc.gridy       = 2;
-        gbc.weightx     = 1;
+        gbc.weightx     = 0;
         gbc.weighty     = 0;
         gbc.gridwidth   = 1;
         gbc.gridheight  = 1;
@@ -178,7 +178,7 @@ public class MainFrame extends JFrame {
         gbc = new GridBagConstraints();
         gbc.gridx       = 0;
         gbc.gridy       = 3;
-        gbc.weightx     = 1;
+        gbc.weightx     = 0;
         gbc.weighty     = 0;
         gbc.gridwidth   = 1;
         gbc.gridheight  = 1;
@@ -202,7 +202,7 @@ public class MainFrame extends JFrame {
         gbc = new GridBagConstraints();
         gbc.gridx       = 0;
         gbc.gridy       = 4;
-        gbc.weightx     = 1;
+        gbc.weightx     = 0;
         gbc.weighty     = 1;
         gbc.gridwidth   = 1;
         gbc.gridheight  = 1;
@@ -214,7 +214,7 @@ public class MainFrame extends JFrame {
         gbc = new GridBagConstraints();
         gbc.gridx       = 1;
         gbc.gridy       = 4;
-        gbc.weightx     = 0;
+        gbc.weightx     = 1;
         gbc.weighty     = 0;
         gbc.gridwidth   = 1;
         gbc.gridheight  = 1;
@@ -261,7 +261,7 @@ public class MainFrame extends JFrame {
         gbc.fill        = GridBagConstraints.BOTH;
         gbc.anchor      = GridBagConstraints.NORTHWEST;
         gbc.insets      = new Insets(0, 0, 0, 0);
-        pnlMain.add(pnlView, gbc);
+        pnlMain.add(spView, gbc);
 
         gbc = new GridBagConstraints();
         gbc.gridx       = 0;
