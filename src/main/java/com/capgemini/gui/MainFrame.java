@@ -5,8 +5,13 @@ import com.capgemini.core.Rental;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * A simple Swing GUI for usage with the boat rental program {@link Rental}.
+ */
 public class MainFrame extends JFrame {
-    //Text
+    /**
+     * Text variables, switch to per-language dictionaries on long term.
+     */
     private final static String TITLE           = "Boat rental";
     private final static String START           = "Start";
     private final static String STOP            = "Stop";
@@ -15,13 +20,17 @@ public class MainFrame extends JFrame {
     private final static String TOUR_ID         = "TourId:";
     private final static String STATUS_START    = "Use the button to start/stop tours";
 
-    //Text formatting
+    /**
+     * Text formats, switch to per-language dictionaries on long term.
+     */
     private final static String TOUR_FORMAT     = "Tour number is %d";
     private final static String DURATION_FORMAT = "Tour duration was %d ms";
     private final static String DURATION_ERROR  = "No tour with id %d was found";
     private final static String AVERAGE_FORMAT  = "The average boat tour was %f ms";
 
-    //Swing variables
+    /**
+     * Swing variables.
+     */
     private JPanel      pnlMain;
     private JPanel      pnlButtonBar;
     private JLabel      lblStatus;
@@ -34,7 +43,9 @@ public class MainFrame extends JFrame {
     private JButton     btnStart;
     private JButton     btnStop;
 
-    //Instance variables
+    /**
+     * Instance variables
+     */
     private final Rental rental;
 
     public MainFrame() {
@@ -46,6 +57,10 @@ public class MainFrame extends JFrame {
         updateStatistics();
     }
 
+    /**
+     * Initialise the GUI elements.
+     * Only to be called from the constructor, do not call anywhere else!
+     */
     private void initGUI() {
         pnlMain         = new JPanel(new GridBagLayout());
         pnlButtonBar    = new JPanel(new GridBagLayout());
@@ -179,17 +194,27 @@ public class MainFrame extends JFrame {
         setContentPane(pnlMain);
     }
 
+    /**
+     * Initialize the listeners associated to GUI elements.
+     * Only to be called from the constructor, do not call anywhere else!
+     */
     private void initListeners() {
         btnStart.addActionListener(e -> startTour());
         btnStop.addActionListener(e -> stopTour());
     }
 
+    /**
+     * Start a new tour.
+     */
     private void startTour() {
         int tourId = rental.startTour();
 
         tfStatus.setText(String.format(TOUR_FORMAT, tourId));
     }
 
+    /**
+     * Stop a tour. The value in the spinner {@link #spnrTourId} is used for tour ID.
+     */
     private void stopTour() {
         int tourId = (int) spnrTourId.getValue();
 
@@ -204,6 +229,9 @@ public class MainFrame extends JFrame {
         updateStatistics();
     }
 
+    /**
+     * Update the statistics GUI elements.
+     */
     private void updateStatistics() {
         tfAverage.setText(String.format(AVERAGE_FORMAT, rental.getAverageTimeInMillis()));
     }
