@@ -15,47 +15,14 @@ public class TourManagerTest {
         }
 
         @Test
-        public void startToursTest() throws TourException {
-            Tour tour = this.manager.startTour();
-            assertEquals(1, tour.tourId);
-
-            tour = this.manager.startTour();
-            assertEquals(2, tour.tourId);
-
-            tour = this.manager.startTour();
-            assertEquals(3, tour.tourId);
+        public void produceTourTest() {
+            Tour tour = manager.produceTour();
+            assertNotNull(tour);
         }
-
         @Test
-        public void endTourTest() throws TourException {
 
-            Tour tour = this.manager.startTour();
-            this.manager.stopTour(tour);
-
-            assertEquals(1, manager.getTotalToursReturned());
-        }
-
-        @Test
-        public void getAverageTimeInMillisTest() {
-            double dureation = this.manager.getAverageTimeInMillis();
-            assertNotEquals(0, dureation);
-        }
-
-        @Test
-        public void getTotalTimeInMillisTest() {
-            long total = this.manager.getTotalTimeInMillis();
-            assertEquals(0, total);
-        }
-
-        @Test
-        public void getNumberReturnedTest() {
-            long id = this.manager.getTotalToursReturned();
-            assertEquals(0, id);
-        }
-
-        @Test
-        public void getNumberOfToursTest() {
-            long id = this.manager.getNumberOfTours();
-            assertEquals(0, id);
+        public void calculateStatisticsTest() {
+            RentalStatistics statisticsObject = manager.calculateStatistics();
+            assertNotNull(statisticsObject);
         }
 }
