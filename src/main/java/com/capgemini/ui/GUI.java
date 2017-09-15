@@ -7,9 +7,7 @@ import com.capgemini.core.TourManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -35,7 +33,7 @@ public class GUI extends JFrame {
     private final static String TOUR_FORMAT     = "Tour number is %d";
     private final static String DURATION_FORMAT = "Tour duration was %d minutes";
     private final static String DURATION_ERROR  = "No tour with id %d was found";
-    private final static String AVERAGE_FORMAT  = "The average boat tour was %d minutes";
+    private final static String AVERAGE_FORMAT  = "The average boat tour was %f minutes";
 
     /**
      * Swing variables.
@@ -350,8 +348,9 @@ public class GUI extends JFrame {
     private void updateStatistics() {
         RentalStatistics statistics = rental.calculateStatistics();
 
-        //TODO: Average time in integer or real?
-        tfAverage.setText(String.format(AVERAGE_FORMAT, statistics.getAverageDuration().toMinutes()));
+        long timeMillis = statistics.getAverageDuration().toMillis();
+        double timeMinutes = (double) timeMillis / 1000d / 60d;
+        tfAverage.setText(String.format(AVERAGE_FORMAT, timeMinutes));
         tfToursStarted.setText(String.valueOf(statistics.getNumberStarted()));
         tfToursEnded.setText(String.valueOf(statistics.getNumberEnded()));
     }

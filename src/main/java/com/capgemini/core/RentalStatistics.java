@@ -39,7 +39,13 @@ public class RentalStatistics {
                         return Duration.ZERO;
                     }
                 })
+                .map(Duration::abs)
                 .reduce(Duration.ZERO, Duration::plus);
-        averageDuration = totalDuration.dividedBy(toursEnded);
+
+        if(toursEnded <= 0) {
+            averageDuration = Duration.ZERO;
+        } else {
+            averageDuration = totalDuration.dividedBy(toursEnded);
+        }
     }
 }

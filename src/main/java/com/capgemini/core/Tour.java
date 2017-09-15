@@ -62,11 +62,11 @@ public class Tour {
      */
     public Duration getDuration() {
         if(hasEnded()) {
-            return Duration.between(endTime, startTime);
+            return Duration.between(startTime, endTime).abs();
         } else {
             LocalDateTime dt = LocalDateTime.now(ZONE_ID);
 
-            return Duration.between(dt, startTime);
+            return Duration.between(startTime, dt).abs();
         }
     }
 

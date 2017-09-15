@@ -14,7 +14,7 @@ public class ConsoleUI {
     private final static String TOURS_STARTED_FORMAT    = "%d tours have been started.";
     private final static String TOURS_ENDED_FORMAT      = "%d tours have ended.";
     private final static String TOUR_DURATION_FORMAT    = "The duration of the tour was %d minutes.";
-    private final static String AVERAGE_DURATION_FORMAT = "The average duration of tours is %d minutes.";
+    private final static String AVERAGE_DURATION_FORMAT = "The average duration of tours is %f minutes.";
     private final static String DURATION_ERROR          = "No tour with id %d was found.";
     private final static String UNKNOWN_COMMAND_FORMAT  = "Error: unknown command \"%s\".";
 
@@ -63,12 +63,12 @@ public class ConsoleUI {
             } else if(line.startsWith("statistics")) {
                 RentalStatistics statistics = rental.calculateStatistics();
 
+                long timeMillis = statistics.getAverageDuration().toMillis();
+                double timeMinutes = (double) timeMillis / 1000d / 60d;
+
                 System.out.printf(TOURS_STARTED_FORMAT + "%n", statistics.getNumberStarted());
                 System.out.printf(TOURS_ENDED_FORMAT + "%n", statistics.getNumberEnded());
-
-                //TODO: average minutes in integer or real?
-                System.out.printf(AVERAGE_DURATION_FORMAT + "%n",
-                        statistics.getAverageDuration().toMinutes());
+                System.out.printf(AVERAGE_DURATION_FORMAT + "%n", timeMinutes);
             } else {
                 System.err.printf(UNKNOWN_COMMAND_FORMAT + "%n", line);
             }
