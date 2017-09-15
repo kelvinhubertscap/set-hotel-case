@@ -1,5 +1,6 @@
 package com.capgemini.ui;
 
+import com.capgemini.core.RentalStatistics;
 import com.capgemini.core.Tour;
 import com.capgemini.core.TourException;
 import com.capgemini.core.TourManager;
@@ -32,9 +33,9 @@ public class GUI extends JFrame {
      * Text formats, switch to per-language dictionaries on long term.
      */
     private final static String TOUR_FORMAT     = "Tour number is %d";
-    private final static String DURATION_FORMAT = "Tour duration was %d ms";
+    private final static String DURATION_FORMAT = "Tour duration was %d minutes";
     private final static String DURATION_ERROR  = "No tour with id %d was found";
-    private final static String AVERAGE_FORMAT  = "The average boat tour was %f ms";
+    private final static String AVERAGE_FORMAT  = "The average boat tour was %d minutes";
 
     /**
      * Swing variables.
@@ -300,9 +301,10 @@ public class GUI extends JFrame {
      */
     private void startTour() {
         try {
-            Tour tour = rental.startTour();
+            Tour tour = rental.produceTour();
             tfStatus.setText(String.format(TOUR_FORMAT, tour.getTourId()));
             tours.add(tour);
+            tour.start();
         } catch (TourException e) {
             tfStatus.setText(e.getMessage());
             return;
@@ -331,9 +333,10 @@ public class GUI extends JFrame {
         }
 
         try {
-            rental.stopTour(found);
+            found.stop();
 
-            tfStatus.setText(String.format(DURATION_FORMAT, found.getDuration()));
+            tfStatus.setText(String.format(DURATION_FORMAT,
+                    found.getDuration().toMinutes()));
         } catch (TourException e) {
             tfStatus.setText(e.getMessage());
         }
@@ -345,9 +348,12 @@ public class GUI extends JFrame {
      * Update the statistics GUI elements.
      */
     private void updateStatistics() {
-        tfAverage.setText(String.format(AVERAGE_FORMAT, rental.getAverageTimeInMillis()));
-        tfToursStarted.setText(String.valueOf(rental.getNumberOfTours()));
-        tfToursEnded.setText(String.valueOf(rental.getNumberReturned()));
+        RentalStatistics statistics = rental.calculateStatistics();
+
+        //TODO: Average time in integer or real?
+        tfAverage.setText(String.format(AVERAGE_FORMAT, statistics.getAverageDuration().toMinutes()));
+        tfToursStarted.setText(String.valueOf(statistics.getNumberStarted()));
+        tfToursEnded.setText(String.valueOf(statistics.getNumberEnded()));
     }
 
     public static void main(String[] args) {
