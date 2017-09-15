@@ -45,12 +45,17 @@ public class TourTest {
 
     @Test
     public void startTest() throws Exception {
-
+        tour.start();
+        long tourStartTime = tour.getStartTime();
+        assertNotEquals(0, tourStartTime);
     }
 
     @Test
     public void stopTest() throws Exception {
-
+        tour.start();
+        tour.stop();
+        long tourStopTime = tour.getStopTime();
+        assertNotEquals(0, tourStopTime);
     }
 
     @Test
@@ -61,7 +66,7 @@ public class TourTest {
 
     @Test
     public void equalsTest() throws Exception {
-
+        assertEquals(true, tour.equals(tour));
     }
 
 }
