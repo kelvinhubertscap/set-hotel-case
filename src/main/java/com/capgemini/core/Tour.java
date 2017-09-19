@@ -21,6 +21,7 @@ public class Tour {
     public  final   int             tourId;
     public          LocalDateTime   startTime;
     private         LocalDateTime   endTime;
+    public          enum            TourType { R, M };
 
     public Tour(int tourId) {
         this.tourId     = tourId;
