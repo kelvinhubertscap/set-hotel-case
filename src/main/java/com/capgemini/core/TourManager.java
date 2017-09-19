@@ -24,6 +24,14 @@ public class TourManager {
         return tour;
     }
 
+    protected Boat claimBoat() {
+
+    }
+
+    protected void returnBoat() {
+
+    }
+
     public RentalStatistics calculateStatistics() {
         return new RentalStatistics(tours);
     }
