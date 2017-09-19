@@ -29,7 +29,7 @@ public class Tour {
     }
 
     /**
-     * Gets the tour identifier - aalo.
+     * Gets the tour identifier.
      *
      * @return The identifier of this tour.
      */
