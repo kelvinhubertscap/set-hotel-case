@@ -1,5 +1,6 @@
 package com.capgemini.core;
 
+import javax.validation.constraints.Null;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,11 +32,18 @@ public class TourManager {
     }
 
     protected Boat claimBoat() {
+        Boat found = null;
+        for (Boat boat : boats) {
+            if (boat.getStatus() == BoatStatus.READY) {
+                found = boat;
+                break;
+            }
+        }
 
+        return found;
     }
 
     protected void returnBoat() {
-
     }
 
     public RentalStatistics calculateStatistics() {
