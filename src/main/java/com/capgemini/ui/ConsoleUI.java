@@ -5,6 +5,10 @@ import com.capgemini.core.*;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static com.capgemini.core.TourType.parseTourType;
 
 public class ConsoleUI {
     /**
@@ -18,6 +22,8 @@ public class ConsoleUI {
     private final static String DURATION_ERROR          = "No tour with id %d was found.";
     private final static String UNKNOWN_COMMAND_FORMAT  = "Error: unknown command \"%s\".";
 
+    private final static Pattern START_FORMAT = Pattern.compile("start (\\S)");
+
     public static void main(String[] args) {
         TourManager rental                      = new TourManager();
         Set<Tour> tours                         = new HashSet<>();
@@ -26,16 +32,34 @@ public class ConsoleUI {
         String line;
 
         while(!(line = scanner.nextLine()).equals("exit")) {
-            if(line.equals("start")) {
-                try {
-                    Tour tour = rental.produceTour();
-                    tours.add(tour);
-                    tour.start();
 
-                    System.out.printf(TOUR_ID_FORMAT + "%n", tour.getTourId());
-                } catch (TourException e) {
-                    System.err.println(e.getMessage());
-                }
+            Matcher matcher = START_FORMAT.matcher(line);
+
+            if(line.startsWith("start")) {
+
+              if(matcher.matches()){
+
+                  String letter = matcher.group(1);
+
+                  try{
+                      TourType.parseTourType(letter);
+
+                      // TO DO:  Initiate appropriate Tour
+                      Tour tour = rental.produceTour();
+                      tours.add(tour);
+                      tour.start();
+                      System.out.printf(TOUR_ID_FORMAT + "%n", tour.getTourId());
+
+                  } catch (TourTypeException e){
+                      System.err.println(e.getMessage());
+                  } catch (TourException e) {
+                      System.err.println(e.getMessage());
+            }
+
+        }else{
+                  // Throw error; not possible to start tour
+              }
+
             } else if(line.startsWith("stop")) {
                 int tourId = Integer.parseInt(line.substring(4).trim());
 
