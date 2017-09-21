@@ -11,7 +11,7 @@ public enum TourType {
             case "L":
                 return LAKE;
             default:
-                throw new TourTypeException("Tourtype niet herkend. Begin opnieuw.");
+                throw new TourTypeException("Tourtype not recognized. Please try again.");
         }
 
     }
