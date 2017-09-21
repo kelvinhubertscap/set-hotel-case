@@ -23,9 +23,15 @@ public class TourManager {
         }
     }
 
-    public Tour produceTour() {
-        Tour tour = new Tour(currentTourId++);
+    public Tour produceTour(TourType tourType) {
 
+        Tour tour;
+
+        if( tourType == TourType.RIVER){
+            tour = new RiverTour(currentTourId++);
+        }else {
+            tour = new Tour(currentTourId++);
+        }
         tours.add(tour);
 
         return tour;

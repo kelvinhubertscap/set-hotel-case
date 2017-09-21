@@ -24,4 +24,9 @@ public class RiverTour extends Tour {
 
         return d;
     }
+
+    @Override
+    public String toString() {
+        return " River";
+    }
 }

@@ -298,17 +298,17 @@ public class GUI extends JFrame {
      * Start a new tour.
      */
     private void startTour() {
-        try {
-            Tour tour = rental.produceTour();
-            tfStatus.setText(String.format(TOUR_FORMAT, tour.getTourId()));
-            tours.add(tour);
-            tour.start();
-        } catch (TourException e) {
-            tfStatus.setText(e.getMessage());
-            return;
-        }
-
-        updateStatistics();
+//        try {
+////            Tour tour = rental.produceTour(tourType);
+////            tfStatus.setText(String.format(TOUR_FORMAT, tour.getTourId()));
+////            tours.add(tour);
+////            tour.start();
+//        } catch (TourException e) {
+//            tfStatus.setText(e.getMessage());
+//            return;
+//        }
+//
+//        updateStatistics();
     }
 
     /**

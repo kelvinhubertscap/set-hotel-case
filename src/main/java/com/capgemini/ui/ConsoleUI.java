@@ -14,7 +14,7 @@ public class ConsoleUI {
     /**
      * Text formats
      */
-    private final static String TOUR_ID_FORMAT = "The tour ID is %d.";
+    private final static String TOUR_ID_FORMAT = "The tour ID is %d, type is: %s";
     private final static String TOURS_STARTED_FORMAT = "%d tours have been started.";
     private final static String TOURS_ENDED_FORMAT = "%d tours have ended.";
     private final static String TOUR_DURATION_FORMAT = "The duration of the tour was %d minutes.";
@@ -50,13 +50,12 @@ public class ConsoleUI {
                 String letter = startmatcher.group(1);
 
                 try {
-                    TourType.parseTourType(letter);
+                    TourType tourType = TourType.parseTourType(letter);
 
-                    // TO DO:  Initiate appropriate Tour
-                    Tour tour = rental.produceTour();
+                    Tour tour = rental.produceTour(tourType);
                     tours.add(tour);
                     tour.start();
-                    System.out.printf(TOUR_ID_FORMAT + "%n", tour.getTourId());
+                    System.out.printf(TOUR_ID_FORMAT + "%n", tour.getTourId(), tour.toString());
 
                 } catch (TourTypeException e) {
                     System.err.println(e.getMessage());

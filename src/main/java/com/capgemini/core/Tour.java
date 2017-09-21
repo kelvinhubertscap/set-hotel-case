@@ -22,7 +22,6 @@ public class Tour {
     public          LocalDateTime   startTime;
     private         LocalDateTime   endTime;
     public          TourManager     tourManager;
-   // public          enum            TourType { R, M };
 
     public Tour(int tourId) {
         this.tourId     = tourId;
@@ -116,5 +115,10 @@ public class Tour {
 
         Tour otherTour = (Tour)other;
         return otherTour.tourId == this.tourId;
+    }
+
+    @Override
+    public String toString() {
+        return "Tour";
     }
 }
