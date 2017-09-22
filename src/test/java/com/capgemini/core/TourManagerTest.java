@@ -7,22 +7,28 @@ import static org.junit.Assert.*;
 
 public class TourManagerTest {
 
-        private TourManager manager;
+    private TourManager manager;
 
-        @Before
-        public void setUp() throws Exception {
-            this.manager = new TourManager();
+    @Before
+    public void setUp() throws Exception {
+        this.manager = new TourManager();
+    }
+
+    @Test
+    public void produceTourTest() {
+
+        for (TourType tourType : TourType.values()) {
+            Tour tour = manager.produceTour(tourType);
+            assertNotNull(tour);
+
+            // No check on type of object.
         }
+    }
 
-//        @Test
-//        public void produceTourTest() {
-//            Tour tour = manager.produceTour();
-//            assertNotNull(tour);
-//        }
-//        @Test
+    @Test
 
-        public void calculateStatisticsTest() {
-            RentalStatistics statisticsObject = manager.calculateStatistics();
-            assertNotNull(statisticsObject);
-        }
+    public void calculateStatisticsTest() {
+        RentalStatistics statisticsObject = manager.calculateStatistics();
+        assertNotNull(statisticsObject);
+    }
 }
