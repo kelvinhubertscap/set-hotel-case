@@ -22,11 +22,17 @@ public class Tour {
     public          LocalDateTime   startTime;
     private         LocalDateTime   endTime;
     public          TourManager     tourManager;
+    private         Boat            boat;
+   // public          enum            TourType { R, M };
 
     public Tour(int tourId) {
         this.tourId     = tourId;
         this.startTime  = null;
         this.endTime    = null;
+    }
+
+    public Boat getBoat() {
+        return boat;
     }
 
     /**
