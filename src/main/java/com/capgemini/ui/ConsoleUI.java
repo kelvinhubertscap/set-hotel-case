@@ -28,7 +28,7 @@ public class ConsoleUI {
             "- [exit] to stop the application\n";
 
     private final static Pattern START_FORMAT = Pattern.compile("start (\\S)");
-    private final static Pattern STOP_FORMAT = Pattern.compile("stop (\\d)");
+    private final static Pattern STOP_FORMAT = Pattern.compile("stop (\\d+)");
     private final static Pattern STATS_FORMAT = Pattern.compile("statistics");
 
     public static void main(String[] args) {
@@ -64,7 +64,7 @@ public class ConsoleUI {
 
 
             }else if (stopmatcher.matches()) {
-                int tourId = Integer.parseInt(line.substring(4).trim());
+                int tourId = Integer.parseInt(stopmatcher.group(1));
 
                 Tour found = null;
 

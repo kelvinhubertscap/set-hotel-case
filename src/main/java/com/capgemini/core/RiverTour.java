@@ -7,8 +7,8 @@ public class RiverTour extends Tour {
 
     private static final int deductionMinutes = 30;
 
-    public RiverTour(int tourId) {
-       super(tourId); // constructor equals to parent constructor.
+    public RiverTour(int tourId, TourManager tourManager) {
+       super(tourId, tourManager); // constructor equals to parent constructor.
     }
 
 

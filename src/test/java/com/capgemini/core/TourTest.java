@@ -11,10 +11,12 @@ import static org.junit.Assert.*;
 public class TourTest {
 
     private Tour tour;
+    private TourManager tourManager;
 
     @Before
     public void setUp() throws Exception {
-        this.tour = new Tour(1);
+        tourManager = new TourManager();
+        this.tour = new Tour(1, tourManager);
     }
 
     @Test

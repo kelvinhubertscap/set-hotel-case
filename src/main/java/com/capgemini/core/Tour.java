@@ -12,6 +12,7 @@ public class Tour {
     private final static String ALREADY_STARTED_EXCEPTION = "Tour has already started.";
     private final static String ALREADY_STOPPED_EXCEPTION = "Tour has already stopped.";
     private final static String NOT_YET_STARTED_EXCEPTION = "Tour has not started yet.";
+    private final static String NO_BOAT_ERROR             = "No boat claimed.";
 
     /**
      * {@link #tourId} represents a tour identifier.
@@ -25,10 +26,11 @@ public class Tour {
     private         Boat            boat;
    // public          enum            TourType { R, M };
 
-    public Tour(int tourId) {
+    public Tour(int tourId, TourManager tourManager) {
         this.tourId     = tourId;
         this.startTime  = null;
         this.endTime    = null;
+        this.tourManager = tourManager;
     }
 
     public Boat getBoat() {
@@ -92,6 +94,12 @@ public class Tour {
         if(startTime != null) {
             throw new TourException(ALREADY_STARTED_EXCEPTION);
         }
+        Boat b = tourManager.claimBoat();
+
+        if( b == null ){
+            throw new TourException(NO_BOAT_ERROR);
+        }
+        this.boat = b;
         this.startTime = LocalDateTime.now(ZONE_ID);
     }
 
@@ -106,6 +114,8 @@ public class Tour {
             throw new TourException(ALREADY_STOPPED_EXCEPTION);
         }
         this.endTime    = LocalDateTime.now(ZONE_ID);
+        tourManager.returnBoat(this);
+
     }
 
     @Override

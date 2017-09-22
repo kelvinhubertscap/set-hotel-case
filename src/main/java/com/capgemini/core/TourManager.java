@@ -11,6 +11,7 @@ import java.util.Set;
 public class TourManager {
 
     private final static Duration MAX_BOAT_DURATION = Duration.ofHours(3);
+    private final static String BOAT_MAINTANANCE_FORMAT = "Boat #%d needs maintenance.";
 
     private int currentTourId;
     private Set<Tour> tours;
@@ -30,11 +31,16 @@ public class TourManager {
 
         Tour tour;
 
-        if( tourType == TourType.RIVER){
-            tour = new RiverTour(currentTourId++);
-        }else {
-            tour = new Tour(currentTourId++);
+        switch (tourType){
+
+            case RIVER:
+                tour = new RiverTour(currentTourId++, this);
+                break;
+            default:
+                tour = new Tour(currentTourId++, this);
+                break;
         }
+
         tours.add(tour);
 
         return tour;
@@ -45,6 +51,7 @@ public class TourManager {
         for (Boat boat : boats) {
             if (boat.getStatus() == BoatStatus.READY) {
                 found = boat;
+                boat.setStatus(BoatStatus.ACTIVE);
                 break;
             }
         }
@@ -65,8 +72,8 @@ public class TourManager {
         Duration difference = MAX_BOAT_DURATION.minus(boat.getTimeActive());
 
         if (difference.isNegative() || difference.isZero()) {
-            System.out.println("Boat moet onderhoud hebben!");
-            boat.setTimeActive(Duration.ofNanos(0));
+            System.err.printf(BOAT_MAINTANANCE_FORMAT, boat.getBoatID());
+            boat.setTimeActive(Duration.ZERO);
         }
 
 

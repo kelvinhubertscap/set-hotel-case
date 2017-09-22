@@ -5,13 +5,13 @@ public enum TourType {
 
     public static TourType parseTourType(String s) throws TourTypeException { // Moet in try/catch!
 
-        switch(s){
+        switch(s.toUpperCase()){
             case "R":
                 return RIVER;
             case "L":
                 return LAKE;
             default:
-                throw new TourTypeException("Tourtype not recognized. Please try again.");
+                throw new TourTypeException("Tourtype not recognized ("+s+"). Please try again.");
         }
 
     }

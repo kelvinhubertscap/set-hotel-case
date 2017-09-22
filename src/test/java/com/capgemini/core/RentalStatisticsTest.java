@@ -13,14 +13,16 @@ public class RentalStatisticsTest {
     private RentalStatistics statisticsObject;
     private Set<Tour> tours;
     private int currentTourId;
+    private TourManager tourManager;
 
     @Before
     public void setUp() throws Exception {
+        tourManager = new TourManager();
         tours = new HashSet<>();
         currentTourId = 0;
 
         for(int i = 0; i < 5; i++) {
-            Tour tour = new Tour(currentTourId++);
+            Tour tour = new Tour(currentTourId++, tourManager);
             tours.add(tour);
 
             tour.start();

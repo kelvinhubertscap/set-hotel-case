@@ -8,10 +8,12 @@ import static org.junit.Assert.*;
 public class TourExceptionTest {
 
     private Tour tour;
+    private TourManager tourManager;
 
     @Before
     public void setUp() throws Exception {
-        this.tour = new Tour(1);
+        this.tourManager = new TourManager();
+        this.tour = new Tour(1, tourManager);
     }
 
     @Test
