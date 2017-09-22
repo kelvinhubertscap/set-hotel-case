@@ -13,10 +13,10 @@ public class ConsoleUI {
     /**
      * Text formats
      */
-    private final static String TOUR_ID_FORMAT = "The tour ID is %d, type is: %s";
+    private final static String TOUR_ID_FORMAT = "The tour ID is %d, type is: %s. Boat %d was assigned.";
     private final static String TOURS_STARTED_FORMAT = "%d tours have been started.";
     private final static String TOURS_ENDED_FORMAT = "%d tours have ended.";
-    private final static String TOUR_DURATION_FORMAT = "The duration of the tour was %d minutes.";
+    private final static String TOUR_DURATION_FORMAT = "The duration of the tour was %d minutes. Boat %d was returned.";
     private final static String AVERAGE_DURATION_FORMAT = "The average duration of tours is %f minutes.";
     private final static String DURATION_ERROR = "No tour with id %d was found.";
     private final static String UNKNOWN_COMMAND_FORMAT = "Error: unknown command \"%s\".\n" +
@@ -54,11 +54,9 @@ public class ConsoleUI {
                     Tour tour = rental.produceTour(tourType);
                     tours.add(tour);
                     tour.start();
-                    System.out.printf(TOUR_ID_FORMAT + "%n", tour.getTourId(), tour.toString());
+                    System.out.printf(TOUR_ID_FORMAT + "%n", tour.getTourId(), tour.toString(), tour.getBoat().getBoatID());
 
-                } catch (TourTypeException e) {
-                    System.err.println(e.getMessage());
-                } catch (TourException e) {
+                } catch (TourTypeException | TourException e) {
                     System.err.println(e.getMessage());
                 }
 
@@ -83,7 +81,7 @@ public class ConsoleUI {
                     found.stop();
 
                     System.out.printf(TOUR_DURATION_FORMAT + " %n",
-                            found.getDuration().toMinutes());
+                            found.getDuration().toMinutes(), found.getBoat().getBoatID());
                 } catch (TourException e) {
                     System.err.println(e.getMessage());
                 }

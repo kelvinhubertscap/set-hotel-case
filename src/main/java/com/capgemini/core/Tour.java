@@ -12,7 +12,7 @@ public class Tour {
     private final static String ALREADY_STARTED_EXCEPTION = "Tour has already started.";
     private final static String ALREADY_STOPPED_EXCEPTION = "Tour has already stopped.";
     private final static String NOT_YET_STARTED_EXCEPTION = "Tour has not started yet.";
-    private final static String NO_BOAT_ERROR             = "No boat claimed.";
+    private final static String NO_BOAT_ERROR             = "No boat available.";
 
     /**
      * {@link #tourId} represents a tour identifier.
