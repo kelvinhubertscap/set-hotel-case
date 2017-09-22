@@ -8,7 +8,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.capgemini.core.TourType.parseTourType;
 
 public class ConsoleUI {
     /**
